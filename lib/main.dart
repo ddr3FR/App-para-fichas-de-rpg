@@ -410,7 +410,7 @@ class _NewCharacterSheetScreenState extends State<NewCharacterSheetScreen> {
               _buildNumberField(_sabedoriaController, 'Sabedoria'),
               _buildNumberField(_carismaController, 'Carisma'),
               TextFormField(
-                maxLines: 3,
+                maxLines: 4,
                 controller: _anotacoesController,
                 decoration: InputDecoration(labelText: 'Anotações'),
 
