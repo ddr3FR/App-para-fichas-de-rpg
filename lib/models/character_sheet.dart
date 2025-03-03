@@ -13,7 +13,12 @@ abstract class CharacterSheetUniveresal {
   Map<String, dynamic> toMap();
 }
 
-
+///função auxiliar para fazer a conversão
+int parseInt(dynamic value, {int defaultValue = 1}) {
+  if (value is int) return value;
+  if (value is String) return int.tryParse(value) ?? defaultValue;
+  return defaultValue;
+}
 
 /// Ficha de personagem D&D
 class CharacterSheetDeD extends CharacterSheetUniveresal {
@@ -44,27 +49,13 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
       nome: map['nome'] ?? '',
       classe: map['classe'] ?? '',
       raca: map['raca'] ?? '',
-      nivel: map['nivel'] is int
-          ? map['nivel']
-          : int.tryParse(map['nivel'].toString()) ?? 1,
-      forca: map['forca'] is int
-          ? map['forca']
-          : int.tryParse(map['forca'].toString()) ?? 10,
-      destreza: map['destreza'] is int
-          ? map['destreza']
-          : int.tryParse(map['destreza'].toString()) ?? 10,
-      constituicao: map['constituicao'] is int
-          ? map['constituicao']
-          : int.tryParse(map['constituicao'].toString()) ?? 10,
-      inteligencia: map['inteligencia'] is int
-          ? map['inteligencia']
-          : int.tryParse(map['inteligencia'].toString()) ?? 10,
-      sabedoria: map['sabedoria'] is int
-          ? map['sabedoria']
-          : int.tryParse(map['sabedoria'].toString()) ?? 10,
-      carisma: map['carisma'] is int
-          ? map['carisma']
-          : int.tryParse(map['carisma'].toString()) ?? 10,
+      nivel: parseInt(map['nivel'], defaultValue: 1), 
+      forca: parseInt(map['forca'], defaultValue: 1) ,
+      destreza: parseInt(map['destreza'], defaultValue: 1) ,
+      constituicao: parseInt(map['constituicao'], defaultValue: 1) ,
+      inteligencia: parseInt(map['inteligencia'], defaultValue: 1 ) ,
+      sabedoria: parseInt(map['sabedoria'], defaultValue: 1 ) ,
+      carisma: parseInt(map['carisma'], defaultValue: 1 ),
       anotacoes: map['anotacoes'] ?? '',
     );
   }
@@ -89,11 +80,76 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
 
 /// Ficha de personagem Gaia 
 class Legados {
-  final List<String> legados = ['ALRAUNES', 'ELFOS', 'MINOTAUROS', 'NETUNES', 'ANÕES', 'DAEVAS', 'URSARS', 'VALDRAKS', 'HUMANOS', 'DELAHKS', 'DRAENUNS', 'KITARIS', 'ORKRASHS', 'INARIS', 'SEIKOS', 'YUANSUS', 'ZAOKANS', 'ELEMENTAIS', 'FORJADOS', 'KAHATS´ZAS', 'VENNÉLIS'];
+  final List<String> legados = ['ALRAUNES', 'ELFOS', 'MINOTAUROS', 'NETUNES', 'ANÕES', 'DAEVAS', 'URSARS', 'VALDRAKS', 'HUMANOS', 'DELAHKS', 'DRAENUNS', 'KITARIS', 'ORKRASHS', 'INARIS', 'SEIKOS', 'YUANSUS', 'ZAOKANS', 'ELEMENTAIS', 'FORJADOS', 'KAHATSZAS', 'VENNÉLIS'];
 } 
 
+class Habilidades {
+  List<String> habilidades = [
+    // Habilidades do Andarilho
+    "Companheiro Feral",
+    "Descendente dos Filhos da Floresta",
+    "Perturbação Lúgubre",
+    "Forças do Ciclo",
+    "Enfeitiçar",
+    "Grilhões Primais",
+    "Explorador de Auroria",
+    "Invólucro Cinzento",
+    "Decreto Lunar",
+    "Técnica Musical",
+
+    // Habilidades do Combatente
+    "Adrenalina",
+    "Discípulo do Corpo e Mente",
+    "Encantamentos Rúnicos",
+    "Ensinamentos do Templo Cinzento",
+    "Perito com Armamentos Corpo a Corpo",
+    "Perseguidor do Véu",
+    "Punição Escarlate",
+    "Técnicas Marciais",
+    "Calor da Batalha",
+    "Perito com Equipamentos Defensivos",
+
+    // Habilidades do Devoto
+    "Poder Abissal",
+    "Lampejo Celestial",
+    "Barreira Protetora",
+    "Aspecto da Grandeza",
+    "Benção Radiante",
+    "Centelha de Édona",
+    "Revitalizar",
+    "Elo Espiritual",
+    "Presente do Abismo",
+    "Presente de Édona",
+
+    // Habilidades do Feiticeiro
+    "Esfera Espiral Soberana",
+    "Explosão de Sangue",
+    "Moldar Elemento",
+    "Campo Elemental",
+    "Perito com Armamentos Mágicos",
+    "Rituais Sangrentos",
+    "Feitiçaria",
+    "Manipular a Fenda",
+    "TOQUE DO VÉU",
+    "VELOCIDADE MÍSTICA",
+
+    // Habilidades do Ladino
+    "ARMADILHAS MÍSTICAS",
+    "DISPARO DEBILITANTE",
+    "EMBOSCAR",
+    "ESTILO ÚNICO",
+    "REVIDAR",
+    "LADINAGEM",
+    "MANTO DAS SOMBRAS",
+    "PERITO COM ARMAMENTOS À DISTÂNCIA",
+    "REFLEXO ENGANADOR",
+    "MARCA SOMBRIA",
+  ];
+
+}
+
 class CharacterSheetGaia extends CharacterSheetUniveresal {
-  final String legado;
+  final String legado, habilidade1, habilidade2, habilidade3, habilidade4, habilidade5, habilidade6;
   final int vida;
   final int pe;
   final int movimentacao;
@@ -104,6 +160,12 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
   final int agilidade;
   CharacterSheetGaia({
     required this.legado,
+    required this.habilidade1,
+    required this.habilidade2,
+    required this.habilidade3,
+    required this.habilidade4,
+    required this.habilidade5,
+    required this.habilidade6,
     required this.vida,
     required this.pe,
     required this.movimentacao,
@@ -158,87 +220,39 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
     return CharacterSheetGaia(
       nome: map['nome'] ?? '',
       legado: map['legado'] ?? '',
-      nivel: map['nivel'] is int
-          ? map['nivel']
-          : int.tryParse(map['nivel'].toString()) ?? 1,
-      vida: map['vida'] is int
-          ? map['vida']
-          : int.tryParse(map['vida'].toString()) ?? 1,
-      pe: map['pe'] is int
-          ? map['pe']
-          : int.tryParse(map['pe'].toString()) ?? 1,
-      movimentacao: map['movimentacao'] is int
-          ? map['movimentacao']
-          : int.tryParse(map['movimentacao'].toString()) ?? 1,
-      bloqueio: map['bloqueio'] is int
-          ? map['bloqueio']
-          : int.tryParse(map['bloqueio'].toString()) ?? 1,
-      precisao: map['precisao'] is int
-          ? map['precisao']
-          : int.tryParse(map['precisao'].toString()) ?? 1,
-      brutalidade: map['brutalidade'] is int
-          ? map['brutalidade']
-          : int.tryParse(map['brutalidade'].toString()) ?? 1,
-      destreza: map['destreza'] is int
-          ? map['destreza']
-          : int.tryParse(map['destreza'].toString()) ?? 1,
-      agilidade: map['agilidade'] is int
-          ? map['agilidade']
-          : int.tryParse(map['agilidade'].toString()) ?? 1,
-      canalizacao: map['canalizacao'] is int
-          ? map['canalizacao']
-          : int.tryParse(map['canalizacao'].toString()) ?? 1,
-      arcanismo: map['arcanismo'] is int
-          ? map['arcanismo']
-          : int.tryParse(map['arcanismo'].toString()) ?? 1,
-      espirito: map['espirito'] is int
-          ? map['espirito']
-          : int.tryParse(map['espirito'].toString()) ?? 1,
-      vigor: map['vigor'] is int
-          ? map['vigor']
-          : int.tryParse(map['vigor'].toString()) ?? 1,
-      carisma: map['carisma'] is int
-          ? map['carisma']
-          : int.tryParse(map['carisma'].toString()) ?? 1,
-      medicina: map['medicina'] is int
-          ? map['medicina']
-          : int.tryParse(map['medicina'].toString()) ?? 1,
-      conhecimentosMisticos: map['conhecimentosMisticos'] is int
-          ? map['conhecimentosMisticos']
-          : int.tryParse(map['conhecimentosMisticos'].toString()) ?? 1,
-      percepcao: map['percepcao'] is int
-          ? map['percepcao']
-          : int.tryParse(map['percepcao'].toString()) ?? 1,
-      exploracao: map['exploracao'] is int
-          ? map['exploracao']
-          : int.tryParse(map['exploracao'].toString()) ?? 1,
-      performance: map['performance'] is int
-          ? map['performance']
-          : int.tryParse(map['performance'].toString()) ?? 1,
-      furtividade: map['furtividade'] is int
-          ? map['furtividade']
-          : int.tryParse(map['furtividade'].toString()) ?? 1,
-      religiao: map['religiao'] is int
-          ? map['religiao']
-          : int.tryParse(map['religiao'].toString()) ?? 1,
-      historia: map['historia'] is int
-          ? map['historia']
-          : int.tryParse(map['historia'].toString()) ?? 1,
-      sobrevivencia: map['sobrevivencia'] is int
-          ? map['sobrevivencia']
-          : int.tryParse(map['sobrevivencia'].toString()) ?? 1,
-      intimidacao: map['intimidacao'] is int
-          ? map['intimidacao']
-          : int.tryParse(map['intimidacao'].toString()) ?? 1,
-      tecnologia: map['tecnologia'] is int
-          ? map['tecnologia']
-          : int.tryParse(map['tecnologia'].toString()) ?? 1,
-      intuicao: map['intuicao'] is int
-          ? map['intuicao']
-          : int.tryParse(map['intuicao'].toString()) ?? 1,
-      vontade: map['vontade'] is int
-          ? map['vontade']
-          : int.tryParse(map['vontade'].toString()) ?? 1,
+      habilidade1: map['habilidade1'] ?? '',
+      habilidade2: map['habilidade2'] ?? '',
+      habilidade3: map['habilidade3'] ?? '',
+      habilidade4: map['habilidade4'] ?? '',
+      habilidade5: map['habilidade5'] ?? '',
+      habilidade6: map['habilidade6'] ?? '',
+      nivel: parseInt(map['nivel'], defaultValue: 0),
+      vida: parseInt(map['vida'], defaultValue: 0),
+      pe: parseInt(map['pe'], defaultValue: 0),
+      movimentacao: parseInt(map['movimentacao'], defaultValue: 0),
+      bloqueio: parseInt(map['bloqueio'], defaultValue: 0),
+      precisao: parseInt(map['precisao'], defaultValue: 0),
+      brutalidade: parseInt(map['brutalidade'], defaultValue: 0),
+      destreza: parseInt(map['destreza'], defaultValue: 0),
+      agilidade: parseInt(map['agilidade'], defaultValue: 0),
+      canalizacao: parseInt(map['canalizacao'], defaultValue: 0),
+      arcanismo: parseInt(map['arcanismo'], defaultValue: 0),
+      espirito: parseInt(map['espirito'], defaultValue: 0),
+      vigor: parseInt(map['vigor'], defaultValue: 0),
+      carisma: parseInt(map['carisma'], defaultValue: 0),
+      medicina: parseInt(map['medicina'], defaultValue: 0),
+      conhecimentosMisticos: parseInt(map['conhecimentosMisticos'], defaultValue: 0),
+      percepcao: parseInt(map['percepcao'], defaultValue: 0),
+      exploracao: parseInt(map['exploracao'], defaultValue: 0),
+      performance: parseInt(map['performance'], defaultValue: 0),
+      furtividade: parseInt(map['furtividade'], defaultValue: 0),
+      religiao: parseInt(map['religiao'], defaultValue: 0),
+      historia: parseInt(map['historia'], defaultValue: 0),
+      sobrevivencia: parseInt(map['sobrevivencia'], defaultValue: 0),
+      intimidacao: parseInt(map['intimidacao'], defaultValue: 0),
+      tecnologia: parseInt(map['tecnologia'], defaultValue: 0),
+      intuicao: parseInt(map['intuicao'], defaultValue: 0),
+      vontade: parseInt(map['vontade'], defaultValue: 0),
       anotacoes: map['anotacoes'] ?? '',
     );
   }
@@ -248,6 +262,12 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
       'type': 'gaia',
       'nome': nome,
       'legado': legado,
+      'habilidade1': habilidade1,
+      'habilidade2': habilidade2,
+      'habilidade3': habilidade3,
+      'habilidade4': habilidade4,
+      'habilidade5': habilidade5,
+      'habilidade6': habilidade6,
       'nivel': nivel,
       'vida': vida,
       'pe': pe,
