@@ -212,7 +212,7 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
                   Expanded(child: _buildNumberField(_nivelController, 'Nível'),)
                 ],
               ),
-              
+              SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(

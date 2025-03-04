@@ -77,7 +77,9 @@ class ListaDeClasses {
         'Monge',
         'Paladino',
         'Patrulheiro',
-        'Artífice' 
+        'Artífice',
+        'Caçador de Sángue',
+        'Cavaleiro do Dração'
       ];
 }
 
@@ -88,6 +90,13 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
   final String antecedente;
   final String alinhamento;
   final int exp;
+  final int cA;
+  final int deslocamento;
+  final int iniciativa;
+  final String tracosDePers;
+  final String ideais;
+  final String ligacoes;
+  final String defeitos;
   ///Infomações de atributo
   final int forca;
   final int destreza;
@@ -104,6 +113,7 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
   final int atletismo;
   final int atuacao;
   final int blefar;
+  final int enganacao;
   final int furtividade;
   final int historia;
   final int intimidacao;
@@ -125,6 +135,13 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
     required this.antecedente,
     required this.alinhamento,
     required this.exp,
+    required this.cA,
+    required this.deslocamento,
+    required this.iniciativa,
+    required this.tracosDePers,
+    required this.ideais,
+    required this.ligacoes,
+    required this.defeitos,
     required String anotacoes,
     ///Infomações de atributo
     required this.forca,
@@ -142,6 +159,7 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
     required this.atletismo,
     required this.atuacao,
     required this.blefar,
+    required this.enganacao,
     required this.furtividade,
     required this.historia,
     required this.intimidacao,
@@ -166,6 +184,13 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
       exp: parseInt(map['exp'], defaultValue: 1),
       antecedente: map['antecedente']?? '',
       alinhamento: map['alinhamento']?? '',
+      cA: parseInt(map['cA'], defaultValue: 1),
+      deslocamento: parseInt(map['deslocamento'], defaultValue: 1),
+      iniciativa: parseInt(map['iniciativa'], defaultValue: 1),
+      tracosDePers: map['tracosDePers'] ?? '',
+      ideais: map['ideais'] ?? '',
+      ligacoes: map['ligacoes'] ?? '',
+      defeitos: map['defeitos'] ?? '',
       anotacoes: map['anotacoes'] ?? '',
       ///Infomações de atributo
       forca: parseInt(map['forca'], defaultValue: 1) ,
@@ -183,6 +208,7 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
       atletismo: parseInt(map['atletismo'], defaultValue: 1),
       atuacao: parseInt(map['atuacao'], defaultValue: 1),
       blefar: parseInt(map['blefar'], defaultValue: 1),
+      enganacao: parseInt(map['enganacao'], defaultValue: 1),
       furtividade: parseInt(map['furtividade'], defaultValue: 1),
       historia: parseInt(map['historia'], defaultValue: 1),
       intimidacao: parseInt(map['intimidacao'], defaultValue: 1),
@@ -209,6 +235,13 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
       'exp' : exp,
       'antecedente' : antecedente,
       'alinhamento' : alinhamento,
+      'cA' : cA,
+      'deslocamento' : deslocamento,
+      'iniciativa' : iniciativa,
+      'tracosDePers' : tracosDePers,
+      'ideais' : ideais,
+      'ligacoes' : ligacoes,
+      'defeitos' : defeitos,
       'anotacoes': anotacoes,
       ///Infomações de atributo
       'forca': forca,
@@ -226,6 +259,7 @@ class CharacterSheetDeD extends CharacterSheetUniveresal {
       'atletismo': atletismo,
       'atuacao': atuacao,
       'blefar': blefar,
+      'enganacao' : enganacao,
       'furtividade': furtividade,
       'historia': historia,
       'intimidacao': intimidacao,
