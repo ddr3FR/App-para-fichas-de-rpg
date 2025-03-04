@@ -21,59 +21,223 @@ int parseInt(dynamic value, {int defaultValue = 1}) {
 }
 
 /// Ficha de personagem D&D
+class ListaDeRacas {
+  final List<String> listaDeRacas = [
+    'Humano',
+    'Elfo',
+    'Anão',
+    'Halfling',
+    'Draconato',
+    'Gnomo',
+    'Meio-Elfo',
+    'Meio-Orc',
+    'Tiefling',
+    'Aasimar',
+    'Bugbear',
+    'Firbolg',
+    'Goblin',
+    'Golias',
+    'Hobgoblin',
+    'Kenku',
+    'Kóbolds',
+    'Lagarto Folclórico',
+    'Orc',
+    'Tabaxi',
+    'Tortle',
+    'Tritão',
+    'Yuan-ti Puro Sangue',
+    'Genasi (Ar, Água, Fogo, Terra)',
+    'Gith (Githyanki, Githzerai)',
+    'Aarakocra',
+    'Genio',
+    'Loxodon',
+    'Centauro',
+    'Minotauro',
+    'Simic Hybrid',
+    'Vedalken',
+    'Changeling',
+    'Kalashtar',
+    'Shifter',
+    'Forjado',
+    'Lobisomem',
+    'Vampiro'
+  ];
+}
+class ListaDeClasses {
+  final List<String> listaDeClasses = [
+        'Bárbaro',
+        'Bardo',
+        'Bruxo',
+        'Clérigo',
+        'Druida',
+        'Feiticeiro',
+        'Guerreiro',
+        'Ladino',
+        'Mago',
+        'Monge',
+        'Paladino',
+        'Patrulheiro',
+        'Artífice' 
+      ];
+}
+
 class CharacterSheetDeD extends CharacterSheetUniveresal {
+  ///Infomações de bases
   final String classe;
   final String raca;
+  final String antecedente;
+  final String alinhamento;
+  final int exp;
+  ///Infomações de atributo
   final int forca;
   final int destreza;
   final int constituicao;
   final int inteligencia;
   final int sabedoria;
   final int carisma;
+  ///Infomações de pericias
+  final int bonusDeProef;
+  final int inspiracao;
+  final int acrobacia;
+  final int adestrarAnimais;
+  final int arcanismo;
+  final int atletismo;
+  final int atuacao;
+  final int blefar;
+  final int furtividade;
+  final int historia;
+  final int intimidacao;
+  final int intuicao;
+  final int investigacao;
+  final int medicina;
+  final int natureza;
+  final int percepcao;
+  final int persuasao;
+  final int prestidigitacao;
+  final int religiao;
+  final int sobrevivencia;
   CharacterSheetDeD({
+    ///Infomações de bases
     required String nome,
-    required String anotacoes,
+    required int nivel,
     required this.classe,
     required this.raca,
-    required int nivel,
+    required this.antecedente,
+    required this.alinhamento,
+    required this.exp,
+    required String anotacoes,
+    ///Infomações de atributo
     required this.forca,
     required this.destreza,
     required this.constituicao,
     required this.inteligencia,
     required this.sabedoria,
     required this.carisma,
+    ///Infomações de pericias
+    required this.bonusDeProef,
+    required this.inspiracao,
+    required this.acrobacia,
+    required this.adestrarAnimais,
+    required this.arcanismo,
+    required this.atletismo,
+    required this.atuacao,
+    required this.blefar,
+    required this.furtividade,
+    required this.historia,
+    required this.intimidacao,
+    required this.intuicao,
+    required this.investigacao,
+    required this.medicina,
+    required this.natureza,
+    required this.percepcao,
+    required this.persuasao,
+    required this.prestidigitacao,
+    required this.religiao,
+    required this.sobrevivencia,
   }) : super(nome: nome, anotacoes: anotacoes, nivel: nivel);
 
   factory CharacterSheetDeD.fromMap(Map<String, dynamic> map) {
     return CharacterSheetDeD(
+      ///Infomações de bases
       nome: map['nome'] ?? '',
       classe: map['classe'] ?? '',
       raca: map['raca'] ?? '',
       nivel: parseInt(map['nivel'], defaultValue: 1), 
+      exp: parseInt(map['exp'], defaultValue: 1),
+      antecedente: map['antecedente']?? '',
+      alinhamento: map['alinhamento']?? '',
+      anotacoes: map['anotacoes'] ?? '',
+      ///Infomações de atributo
       forca: parseInt(map['forca'], defaultValue: 1) ,
       destreza: parseInt(map['destreza'], defaultValue: 1) ,
       constituicao: parseInt(map['constituicao'], defaultValue: 1) ,
       inteligencia: parseInt(map['inteligencia'], defaultValue: 1 ) ,
       sabedoria: parseInt(map['sabedoria'], defaultValue: 1 ) ,
       carisma: parseInt(map['carisma'], defaultValue: 1 ),
-      anotacoes: map['anotacoes'] ?? '',
+      ///Infomações de pericias
+      bonusDeProef: parseInt(map['bonusDeProef'], defaultValue: 1),
+      inspiracao: parseInt(map['inspiracao'], defaultValue: 1),
+      acrobacia: parseInt(map['acrobacia'], defaultValue: 1),
+      adestrarAnimais: parseInt(map['adestrarAnimais'], defaultValue: 1),
+      arcanismo: parseInt(map['arcanismo'], defaultValue: 1),
+      atletismo: parseInt(map['atletismo'], defaultValue: 1),
+      atuacao: parseInt(map['atuacao'], defaultValue: 1),
+      blefar: parseInt(map['blefar'], defaultValue: 1),
+      furtividade: parseInt(map['furtividade'], defaultValue: 1),
+      historia: parseInt(map['historia'], defaultValue: 1),
+      intimidacao: parseInt(map['intimidacao'], defaultValue: 1),
+      intuicao: parseInt(map['intuicao'], defaultValue: 1),
+      investigacao: parseInt(map['investigacao'], defaultValue: 1),
+      medicina: parseInt(map['medicina'], defaultValue: 1),
+      natureza: parseInt(map['natureza'], defaultValue: 1),
+      percepcao: parseInt(map['percepcao'], defaultValue: 1),
+      persuasao: parseInt(map['persuasao'], defaultValue: 1),
+      prestidigitacao: parseInt(map['prestidigitacao'], defaultValue: 1),
+      religiao: parseInt(map['religiao'], defaultValue: 1),
+      sobrevivencia: parseInt(map['sobrevivencia'], defaultValue: 1), 
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
+      ///Infomações de bases
       'type': 'dnd',
       'nome': nome,
       'classe': classe,
       'raca': raca,
       'nivel': nivel,
+      'exp' : exp,
+      'antecedente' : antecedente,
+      'alinhamento' : alinhamento,
+      'anotacoes': anotacoes,
+      ///Infomações de atributo
       'forca': forca,
       'destreza': destreza,
       'constituicao': constituicao,
       'inteligencia': inteligencia,
       'sabedoria': sabedoria,
       'carisma': carisma,
-      'anotacoes': anotacoes,
+      ///Infomações de pericias
+      'bonusDeProef' : bonusDeProef,
+      'inspiracao' : inspiracao,
+      'acrobacia': acrobacia,
+      'adestrarAnimais': adestrarAnimais,
+      'arcanismo': arcanismo,
+      'atletismo': atletismo,
+      'atuacao': atuacao,
+      'blefar': blefar,
+      'furtividade': furtividade,
+      'historia': historia,
+      'intimidacao': intimidacao,
+      'intuicao': intuicao,
+      'investigacao': investigacao,
+      'medicina': medicina,
+      'natureza': natureza,
+      'percepcao': percepcao,
+      'persuasao': persuasao,
+      'prestidigitacao': prestidigitacao,
+      'religiao': religiao,
+      'sobrevivencia': sobrevivencia,
     };
   }
 }

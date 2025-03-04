@@ -1,41 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import 'dart:io';
 
 class BooksPage extends StatelessWidget {
-  static const List<Map<String, String>> books = const [
-    const {'title': 'D&D 5E - Livro do Jogador (Fundo Colorido)', 'url': 'https://github.com/bibliotecaelfica/bibliotecaelfica.github.io/files/3611502/D.D.5E.-.Livro.do.Jogador.Fundo.Colorido.pdf'},
-    const {'title': 'Gaia - O Preludio - Manual de Demonstração 2.0', 'url': 'https://drive.google.com/uc?export=download&id=1lAAeTm7xIj_P2LlDBIYBkxq24GssJvZD'},
-  ];
-
   const BooksPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Livros de RPG')),
-      body: ListView.builder(
-        itemCount: books.length,
-        itemBuilder: (context, index) {
-          final book = books[index];
-          return ListTile(
-            title: Text(book['title']!),
-            trailing: const Icon(Icons.picture_as_pdf),
-            onTap: () => _openPdf(context, book['url']!),
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance.collection('LivrosDeRpg').snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Erro: ${snapshot.error}'));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.data!.docs.isEmpty) {
+            return const Center(child: Text('Nenhum livro encontrado.'));
+          }
+          return ListView.builder(
+            itemCount: snapshot.data!.docs.length,
+            itemBuilder: (context, index) {
+              final bookData = snapshot.data!.docs[index].data() as Map<String, dynamic>;
+              final title = bookData['title'] ?? 'Sem título';
+              final url = bookData['url'] ?? '';
+              return ListTile(
+                title: Text(title),
+                trailing: const Icon(Icons.picture_as_pdf),
+                onTap: () => _openPdf(context, title, url),
+              );
+            },
           );
         },
       ),
     );
   }
 
-  void _openPdf(BuildContext context, String url) {
+  void _openPdf(BuildContext context, String title, String url) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PdfViewerScreen(pdfUrl: url),
+        builder: (context) => PdfViewerScreen(pdfUrl: url, title: title),
       ),
     );
   }
@@ -43,8 +55,9 @@ class BooksPage extends StatelessWidget {
 
 class PdfViewerScreen extends StatefulWidget {
   final String pdfUrl;
+  final String title; // Novo parâmetro para o título do livro
 
-  const PdfViewerScreen({Key? key, required this.pdfUrl}) : super(key: key);
+  const PdfViewerScreen({Key? key, required this.pdfUrl, required this.title}) : super(key: key);
 
   @override
   State<PdfViewerScreen> createState() => _PdfViewerScreenState();
@@ -142,7 +155,8 @@ class _PdfViewerScreenState extends State<PdfViewerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Visualizador de PDF'),
+        // Exibe o nome do livro na AppBar
+        title: Text(widget.title),
         actions: [
           if (!_isLoading)
             Padding(
