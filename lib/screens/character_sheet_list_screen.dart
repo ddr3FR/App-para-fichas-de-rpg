@@ -171,9 +171,31 @@ class _CharacterSheetListScreenState extends State<CharacterSheetListScreen> {
                         ),
                         IconButton(
                           icon: const Icon(Icons.delete, color: Colors.red),
-                          onPressed: () => _deleteSheet(index),
+                          onPressed: () async {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text("Confirmação"),
+                                content: const Text("Você tem certeza que deseja excluir?"),
+                                actions: [
+                                  TextButton(
+                                    child: const Text("Cancelar"),
+                                    onPressed: () => Navigator.of(context).pop(false),
+                                  ),
+                                  TextButton(
+                                    child: const Text("Excluir"),
+                                    onPressed: () => Navigator.of(context).pop(true),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirm == true) {
+                              _deleteSheet(index);
+                            }
+                          },
                           tooltip: "Excluir",
                         ),
+
                       ],
                     ),
                   ),

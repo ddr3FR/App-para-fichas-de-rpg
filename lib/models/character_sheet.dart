@@ -345,6 +345,52 @@ class Habilidades {
   ];
 
 }
+class Armas{
+  List<String> armas = [
+    // Armamentos Leves
+    'Adagas(Dex)',
+    'Maças(Brut)',
+    'Machados Leves(Brut)',
+    'Espadas Curtas(Dex ou Brut)',
+
+    // Armamentos Pesados
+    'Lanças(Brut ou Dex)',
+    'Martelos de Guerra(Brut)',
+    'Machados Pesados(Brut)',
+    'Espadas Longas(Brut ou Dex)',
+
+    // Armamentos à Distância
+    'Revólveres(Dex)',
+    'Bestas Pequenas(Dex)',
+    'Arcos(Dex)',
+    'Mosquetes(Dex)',
+    'Bestas Grandes(Dex)',
+
+    // Armamentos Mágicos
+    'Berloques de Energia(Arca)',
+    'Catalisadores Místicos(Arca)',
+
+    // Armamentos Especiais
+    'Armas de Punho(-)'
+  ];
+}
+final Map<String, int> weaponBaseDamage = {
+  'Adagas(Dex)': 2,
+  'Maças(Brut)': 2,
+  'Machados Leves(Brut)': 3,
+  'Espadas Curtas(Dex ou Brut)': 3,
+  'Lanças(Brut ou Dex)': 4,
+  'Martelos de Guerra(Brut)': 4,
+  'Machados Pesados(Brut)': 5,
+  'Espadas Longas(Brut ou Dex)': 5,
+  'Revólveres(Dex)' : 3,
+  'Bestas Pequenas(Dex)' : 2,
+  'Arcos(Dex)' : 4,
+  'Mosquetes(Dex)': 6,
+  'Bestas Grandes(Dex)': 5,
+  'Berloques de Energia(Arca)': 2,
+  'Catalisadores Místicos(Arca)': 4,
+};
 
 class CharacterSheetGaia extends CharacterSheetUniveresal {
   final String legado, habilidade1, habilidade2, habilidade3, habilidade4, habilidade5, habilidade6;
@@ -356,6 +402,8 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
   final int brutalidade;
   final int destreza;
   final int agilidade;
+  final String arma;
+  final int danoArma;
   CharacterSheetGaia({
     required this.legado,
     required this.habilidade1,
@@ -390,6 +438,8 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
     required this.tecnologia,
     required this.intuicao,
     required this.vontade,
+    required this.arma,
+    required this.danoArma,
     required String nome,
     required String anotacoes,
     required int nivel,
@@ -413,6 +463,7 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
   final int tecnologia;
   final int intuicao;
   final int vontade;
+  
 
   factory CharacterSheetGaia.fromMap(Map<String, dynamic> map) {
     return CharacterSheetGaia(
@@ -452,6 +503,8 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
       intuicao: parseInt(map['intuicao'], defaultValue: 0),
       vontade: parseInt(map['vontade'], defaultValue: 0),
       anotacoes: map['anotacoes'] ?? '',
+      arma: map['arma']??'',
+      danoArma: parseInt(map['danoArma'], defaultValue: 0),
     );
   }
 
@@ -493,6 +546,8 @@ class CharacterSheetGaia extends CharacterSheetUniveresal {
       'tecnologia': tecnologia,
       'intuicao': intuicao,
       'vontade': vontade,
+      'arma' : arma,
+      'danoArma' : danoArma,
       'anotacoes': anotacoes,
     };
   }

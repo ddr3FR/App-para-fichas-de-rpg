@@ -632,7 +632,7 @@ class _NewCharacterSheetScreenState extends State<NewCharacterSheetScreen> {
                 endIndent: 0,
               ),
               Text(
-                'Peronalidade e Outros',
+                'Personalidade e Outros',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

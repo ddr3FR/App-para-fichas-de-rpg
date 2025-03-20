@@ -24,6 +24,8 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
   String? _selectedHabilidade4;
   String? _selectedHabilidade5;
   String? _selectedHabilidade6;
+  String? _selectedArma;
+  final _danoArmaController = TextEditingController();
   final _vidaController = TextEditingController();
   final _peController = TextEditingController();
   final _movimentacaoController = TextEditingController();
@@ -59,6 +61,13 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
       _nomeController.text = widget.sheet!.nome;
       _nivelController.text = widget.sheet!.nivel.toString();
       _selectedLegado = widget.sheet!.legado;
+      _selectedHabilidade1 = widget.sheet!.habilidade1.isNotEmpty ? widget.sheet!.habilidade1 : null;
+      _selectedHabilidade2 = widget.sheet!.habilidade2.isNotEmpty ? widget.sheet!.habilidade2 : null;
+      _selectedHabilidade3 = widget.sheet!.habilidade3.isNotEmpty ? widget.sheet!.habilidade3 : null;
+      _selectedHabilidade4 = widget.sheet!.habilidade4.isNotEmpty ? widget.sheet!.habilidade4 : null;
+      _selectedHabilidade5 = widget.sheet!.habilidade5.isNotEmpty ? widget.sheet!.habilidade5 : null;
+      _selectedHabilidade6 = widget.sheet!.habilidade6.isNotEmpty ? widget.sheet!.habilidade6 : null;
+      _selectedArma = widget.sheet!.arma.isNotEmpty ? widget.sheet!.arma : null;
       _vidaController.text = widget.sheet!.vida.toString();
       _peController.text = widget.sheet!.pe.toString();
       _movimentacaoController.text =
@@ -87,6 +96,7 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
       _tecnologiaController.text = widget.sheet!.tecnologia.toString();
       _intuicaoController.text = widget.sheet!.intuicao.toString();
       _vontadeController.text = widget.sheet!.vontade.toString();
+      _danoArmaController.text = widget.sheet!.danoArma.toString();
       _anotacoesController.text = widget.sheet!.anotacoes;
     }
   }
@@ -122,6 +132,7 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
     _intuicaoController.dispose();
     _vontadeController.dispose();
     _anotacoesController.dispose();
+    _danoArmaController.dispose();
     super.dispose();
   }
 
@@ -137,6 +148,8 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
       habilidade4: _selectedHabilidade4??'',
       habilidade5: _selectedHabilidade5??'',
       habilidade6: _selectedHabilidade6??'',
+      arma: _selectedArma??'',
+      danoArma: int.tryParse(_danoArmaController.text)?? 0,
       vida: int.tryParse(_vidaController.text) ?? 1,
       pe: int.tryParse(_peController.text) ?? 1,
       movimentacao: int.tryParse(_movimentacaoController.text) ?? 1,
@@ -534,6 +547,41 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
                   ),
                 ],
               ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Expanded(child: 
+                    DropdownButtonFormField<String>(
+                      value: _selectedArma,
+                      decoration: const InputDecoration(
+                        labelText: 'Arma',
+                        border: OutlineInputBorder(),
+                      ),
+                      
+                      isExpanded: true,
+                      icon: const Icon(Icons.arrow_drop_down),
+                      elevation: 16,
+                      style: TextStyle(
+                        color: Theme.of(context).textTheme.bodyLarge?.color,
+                        fontSize: 16,
+                      ),
+                      items: Armas().armas
+                          .map((armas) => DropdownMenuItem<String>(
+                                value: armas,
+                                child: Text(armas),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        setState(() {
+                          _selectedArma = value;
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(child: _buildNumberField(_danoArmaController, 'Modificador'),)
+                ],
+              ),
               Text(
                 'ANOTAÇÕES',
                 style: TextStyle(
@@ -561,6 +609,8 @@ class _NewCharacterSheetGaiaScreenState extends State<NewCharacterSheetGaiaScree
                       habilidade4: _selectedHabilidade4??'',
                       habilidade5: _selectedHabilidade5??'',
                       habilidade6: _selectedHabilidade6??'',
+                      arma: _selectedArma??'',
+                      danoArma: int.tryParse(_danoArmaController.text)?? 0,
                       nivel: int.tryParse(_nivelController.text) ?? 1,
                       vida: int.tryParse(_vidaController.text) ?? 1,
                       pe: int.tryParse(_peController.text) ?? 1,

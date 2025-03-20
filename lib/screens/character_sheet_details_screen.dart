@@ -58,6 +58,7 @@ class CharacterSheetDetailsScreen extends StatelessWidget {
         _buildInfoRow("PE", gaia.pe.toString()),
         _buildInfoRow("Movimentação", gaia.movimentacao.toString()),
         _buildInfoRow("Bloqueio", gaia.bloqueio.toString()),
+        _buildInfoRow("${gaia.arma}", gaia.danoArma.toString()),
       ]);
     }
 
